@@ -27,4 +27,6 @@ document.addEventListener('DOMContentLoaded', () => {
             direction = +width
         }
     }
+
+    document.addEventListener('keyup', control)
 })
