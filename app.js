@@ -27,8 +27,23 @@ document.addEventListener('DOMContentLoaded', () => {
         currentIndex = 0
         currentSnake.forEach(index => squares[index].classList.add('snake'))
         interval = setInterval(moveOutcomes, intervalTime)
-        
     }    
+
+    function moveOutcomes() {
+        if(
+            (currentSnake[0] + width >= (width * width) && direction === width) || //snake hits bottom
+            (currentSnake[0] % width === width -1  && direction === 1) || //snake hits right wall
+            (currentSnake[0] % width === 0 && direction === -1) || //snake hits left wall
+            (currentSnake[0] - width < 0 && direction === -width) ||
+            squares[currentSnake[0] + direction].classList.contains('snake')//snake hits top
+        ) {
+            return clearInterval(interval)
+        }
+
+        const tail = currentSnake.pop()
+        squares[tail].classList.remove('snake')
+        currentSnake.unshift(currentSnake[0] + direction)
+    }
 
     function control(e) {
         squares[currentIndex].classList.remove('snake')
