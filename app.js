@@ -7,7 +7,6 @@ document.addEventListener('DOMContentLoaded', () => {
     let currentIndex = 0
     let appleIndex = 0
     let currentSnake = [2,1,0] //2 head, 0 tail of snake
-
     let direction = 1
     let score = 0
     let speed = 0.9
@@ -34,8 +33,8 @@ document.addEventListener('DOMContentLoaded', () => {
             (currentSnake[0] + width >= (width * width) && direction === width) || //snake hits bottom
             (currentSnake[0] % width === width -1  && direction === 1) || //snake hits right wall
             (currentSnake[0] % width === 0 && direction === -1) || //snake hits left wall
-            (currentSnake[0] - width < 0 && direction === -width) ||
-            squares[currentSnake[0] + direction].classList.contains('snake')//snake hits top
+            (currentSnake[0] - width < 0 && direction === -width) || //snake hits top
+            squares[currentSnake[0] + direction].classList.contains('snake') //snake runs into self
         ) {
             return clearInterval(interval)
         }
@@ -56,12 +55,12 @@ document.addEventListener('DOMContentLoaded', () => {
             interval = setInterval(moveOutcomes, intervalTime)
         }
 
-        squares[currentSnake[0].classList.add('snake')]
+        squares[currentSnake[0]].classList.add('snake')
     }
 
     function randomApple() {
         do{
-            appleIndex = Math.floor(Math.random * squares.length)
+            appleIndex = Math.floor(Math.random() * squares.length)
         } while(squares[appleIndex].classList.contains('snake'))
         squares[appleIndex].classList.add('apple')
     }
